@@ -1,4 +1,6 @@
 package hdt7;
+//Sergio de Leon 14312
+//Manolo Capilla 131350
 /**
  *
  * @author Sergio

@@ -1,4 +1,6 @@
 package hdt7;
+//Sergio de Leon 14312
+//Manolo Capilla 131350
 /**
  *
  * @author Sergio
@@ -63,7 +65,7 @@ public class BinaryTree<E>{
     {
         if(nodo == null)return;
         Inorden(nodo.left);
-        arbol=arbol+nodo.datos.getIngles()+" ";
+        arbol=arbol+"("+nodo.datos.getIngles()+", "+nodo.datos.getEspañol()+") ";
         Inorden(nodo.right);
         
     }

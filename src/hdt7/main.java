@@ -1,4 +1,6 @@
 package hdt7;
+//Sergio de Leon 14312
+//Manolo Capilla 131350
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -106,9 +108,13 @@ public class main {
                  
                         }
                  }
-        
-        System.out.println(word);
+        System.out.println("Recorrido del arbol In-order:");    
         System.out.println(arbol.recorridoInorden());
+        System.out.println(); 
+        System.out.println("El texto recibido es: "+traduccion);
+        System.out.println("Texto traducido: "+word);
+        
+       
     }
     
 }
