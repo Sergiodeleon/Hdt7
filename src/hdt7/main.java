@@ -1,4 +1,8 @@
 package hdt7;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,13 +18,56 @@ public class main {
         Scanner sc;
         BinaryTree arbol = new BinaryTree();
         sc = new Scanner (System.in);
-        String[] Dato={"(house, casa)","(am, soy)","(i, yo)"};
+        String traduccion="";
+        try{
+            // Abrimos el archivo
+            FileInputStream fstream = new FileInputStream("texto.txt");
+            // Creamos el objeto de entrada
+            DataInputStream entrada = new DataInputStream(fstream);
+            // Creamos el Buffer de Lectura
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
+            String strLinea;
+            // Leer el archivo linea por linea
+         
+            
+            while ((strLinea = buffer.readLine()) != null)   {
+                traduccion = traduccion+strLinea+" ";
+            }
+            // Cerramos el archivo
+            entrada.close();
+        }catch (Exception e){ //Catch de excepciones
+            System.err.println("Ocurrio un error: " + e.getMessage());
+        }
+        List<String> Dato = new ArrayList<>();
+        int countLineas = 0;
+        try{
+            // Abrimos el archivo
+            FileInputStream fstream = new FileInputStream("diccionario.txt");
+            // Creamos el objeto de entrada
+            DataInputStream entrada = new DataInputStream(fstream);
+            // Creamos el Buffer de Lectura
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
+            String strLinea;
+            // Leer el archivo linea por linea
+         
+            
+            while ((strLinea = buffer.readLine()) != null)   {
+                Dato.add(strLinea);
+                countLineas = countLineas+1;
+            }
+            // Cerramos el archivo
+            entrada.close();
+        }catch (Exception e){ //Catch de excepciones
+            System.err.println("Ocurrio un error: " + e.getMessage());
+        }
+        
+        
     
-        for(int i = 0; i < Dato.length; i++ )
+        for(int i = 0; i < countLineas; i++ )
         {   Association<String,String> valor=new Association<>();
             String dato1;
             int coma=0;
-            dato1=Dato[i].toLowerCase();
+            dato1=Dato.get(i).toLowerCase();
             for(int n = 0; n <dato1.length()-1; n++){
                     if(Character.toString(dato1.charAt(n)).equals(",")){
                         coma = n;
@@ -30,7 +77,7 @@ public class main {
             valor.setEspañol(dato1.substring(coma+1,dato1.length()-1));
             arbol.insertarNodo(valor);
         }
-        String traduccion="house am house ";
+        
         int inicio = 0;
         int numPalabras=0;
         List<String> Texto = new ArrayList<>();
@@ -43,13 +90,21 @@ public class main {
                     }
                  }
         
-        System.out.println("Ingrese palabra en ingles: ");
+
         String word="";
-        String word1 =arbol.buscar(Texto.get(1));
-        System.out.println(word1.substring(0,word1.length()));
-        System.out.println(arbol.buscar(Texto.get(2)));
              for(int n = 0; n<numPalabras; n++){
+                        String palabra1 = arbol.buscar(Texto.get(n).replace(" ",""));
+                        String palabra2 = Texto.get(n).replace(" ","");
+                        
+                        if(palabra1.equals(palabra2)){
+                            word=word+" *"+Texto.get(n).replace(" ","")+"*";
+                            
+                        }
+                        else{
+                    
                         word=word+arbol.buscar(Texto.get(n).replace(" ",""));
+                 
+                        }
                  }
         
         System.out.println(word);
